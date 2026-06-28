@@ -16,9 +16,7 @@ import streamlit as st
 
 warnings.filterwarnings("ignore")
 
-# =========================================================
-# KONFIGURASI DASAR
-# =========================================================
+# set konfigurasi
 st.set_page_config(
     page_title="Retail Sales Forecasting",
     page_icon="📈",
@@ -49,9 +47,7 @@ DEFAULT_LSTM_PATH = MODEL_DIR / "tuning_xgboost_lstm_model_lstm_residual_2026062
 DEFAULT_ARTIFACT_PATH = RESOURCE_DIR / "artefak_tuning_xgboost_lstm_20260628_072659.pkl"
 
 
-# =========================================================
-# CUSTOM CSS MODERN
-# =========================================================
+# set tampilan css agar rapi
 st.markdown(
     """
     <style>
@@ -347,9 +343,7 @@ st.markdown(
 )
 
 
-# =========================================================
-# UTILITAS PATH DAN MODEL
-# =========================================================
+# konfigurasi path 
 def safe_json_load(path: Path) -> dict:
     if not path.exists():
         return {}
@@ -431,9 +425,7 @@ def load_keras_resource(path_str: str):
             return None, message
 
 
-# =========================================================
-# UTILITAS DATA
-# =========================================================
+# mengatur data 
 def standardize_columns(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df.columns = [str(col).strip() for col in df.columns]
@@ -583,10 +575,7 @@ def merge_data_sources(uploaded_data: dict[str, Optional[pd.DataFrame]], folder_
             merged[key] = folder_df
     return merged
 
-
-# =========================================================
-# FEATURE ENGINEERING
-# =========================================================
+# feat-Eng
 def encode_type(series: pd.Series) -> pd.Series:
     if pd.api.types.is_numeric_dtype(series):
         return pd.to_numeric(series, errors="coerce").fillna(0).astype(int)
@@ -680,9 +669,7 @@ def feature_engineering(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# =========================================================
-# PREDIKSI XGBOOST DAN LSTM RESIDUAL
-# =========================================================
+# prediksi model
 def get_model_feature_columns(xgb_model) -> list[str]:
     if xgb_model is not None and hasattr(xgb_model, "feature_names_in_"):
         return [str(col) for col in list(xgb_model.feature_names_in_)]
@@ -991,9 +978,7 @@ def build_submission(df: pd.DataFrame) -> pd.DataFrame:
     return result[["Id", "Weekly_Sales"]]
 
 
-# =========================================================
-# UI HELPER
-# =========================================================
+# Setting UI 
 def format_short(value: float) -> str:
     value = float(value)
     if abs(value) >= 1_000_000:
@@ -1356,9 +1341,7 @@ def run_prediction_pipeline(
     return final_result
 
 
-# =========================================================
-# RENDER UI
-# =========================================================
+# rendering 
 st.markdown(
     """
     <div class="topbar">
@@ -1381,7 +1364,7 @@ st.markdown(
         <div class="hero-label">● Deployment Prediction</div>
         <div class="hero-title">Sales Forecasting with Hybrid Modeling</div>
         <div class="hero-desc">
-            Dashboard ini menggunakan <b>train.csv</b>, <b>features.csv</b>, dan <b>stores.csv</b> sebagai data utama dari folder <b>data/</b>. 
+            Dashboard ini menggunakan <b>train.csv</b>, <b>features.csv</b>, dan <b>stores.csv</b> sebagai data utama. 
             User hanya perlu mengupload <b>test.csv</b> tanpa target, lalu model hybrid <i>XGBoost–LSTM</i> akan menghasilkan prediksi <i>Weekly_Sales</i> untuk periode ke depan.
         </div>
     </div>
@@ -1413,14 +1396,12 @@ active_data: dict[str, Optional[pd.DataFrame]] = {
 
 st.markdown('<div class="divider-space"></div>', unsafe_allow_html=True)
 
-# =========================================================
-# DATA UTAMA
-# =========================================================
+# main data
 with st.container():
     st.markdown(
         """
         <div class="card">
-            <div class="card-title">Data Utama dari Folder data/</div>
+            <div class="card-title">Data Utama dari Folder data</div>
             <div class="card-subtitle">
                 Data train, features, dan stores menjadi sumber utama dashboard. Data ini digunakan untuk konteks historis, integrasi fitur, serta pembentukan lag dan rolling.
             </div>
@@ -1473,9 +1454,7 @@ with st.expander("Lihat preview data utama", expanded=False):
         else:
             st.warning("stores.csv belum ditemukan di folder data/.")
 
-# =========================================================
-# UPLOAD TEST
-# =========================================================
+# upload data
 st.markdown('<div class="divider-space"></div>', unsafe_allow_html=True)
 
 with st.container():
@@ -1519,9 +1498,7 @@ with st.container():
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-# =========================================================
-# RUN PREDICTION
-# =========================================================
+# button run data
 st.markdown('<div class="divider-space"></div>', unsafe_allow_html=True)
 
 run_col, note_col = st.columns([0.24, 0.76], vertical_alignment="center")
@@ -1548,9 +1525,7 @@ if run_clicked:
 
 result_df = st.session_state.get("hasil_prediksi")
 
-# =========================================================
-# RESULT
-# =========================================================
+# hasil
 if result_df is not None:
     result_df = result_df.copy()
     result_df["Date_Asli"] = pd.to_datetime(result_df["Date_Asli"], errors="coerce")
