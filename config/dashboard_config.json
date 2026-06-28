@@ -1,0 +1,39 @@
+{
+    "nama_project": "Prediksi Penjualan Ritel",
+    "model_terbaik": "XGBoost-LSTM Tuning",
+    "tahap_model": "Tuning",
+    "dasar_pemilihan": "sMAPE terendah pada data Test internal",
+    "metrik_model_terbaik": {
+        "MAE": 1365.1854,
+        "RMSE": 2983.9209,
+        "sMAPE": 16.4627,
+        "R2": 0.9816
+    },
+    "folder_model": "model",
+    "folder_resource": "resource",
+    "folder_data": "data",
+    "file_model": [
+        "model/artefak_tuning_xgboost_lstm_20260628_072659.pkl",
+        "model/hybrid_xgboost_lstm_model_1_xgboost_20260626_040552.pkl",
+        "model/hybrid_xgboost_lstm_model_2_lstm_residual_20260626_040552.keras",
+        "model/tuning_xgboost_lstm_model_1_xgboost_20260626_151603.pkl",
+        "model/tuning_xgboost_lstm_model_2_lstm_residual_20260626_151603.keras",
+        "model/tuning_xgboost_lstm_model_lstm_residual_20260628_072659.keras"
+    ],
+    "file_resource": [
+        "resource/artefak_baseline_lstm_20260627_073840.pkl",
+        "resource/artefak_hybrid_prophet_lstm_20260626_041332.pkl",
+        "resource/artefak_hybrid_prophet_xgboost_20260627_115457.pkl",
+        "resource/artefak_hybrid_xgboost_lstm_20260626_040552.pkl",
+        "resource/artefak_preprocessing_20260627_174535.pkl",
+        "resource/artefak_tuning_lstm_20260627_053120.pkl",
+        "resource/artefak_tuning_prophet_20260626_163349.pkl",
+        "resource/artefak_tuning_prophet_lstm_20260626_232145.pkl",
+        "resource/artefak_tuning_prophet_xgboost_20260626_142634.pkl",
+        "resource/artefak_tuning_xgboost_lstm_20260626_151603.pkl",
+        "resource/model_registry.json"
+    ],
+    "file_data": [
+        "data/prediksi_Tuning_XGBoost_LSTM_Tuning_20260628_071519.csv"
+    ]
+}
