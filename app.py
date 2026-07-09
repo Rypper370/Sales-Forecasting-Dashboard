@@ -1012,7 +1012,6 @@ def validation_box(name: str, df: Optional[pd.DataFrame], required_cols: list[st
         note = f"{rows:,} baris · {cols:,} kolom"
     else:
         status_html = '<div class="valid-bad">OPSIONAL</div>' if optional else '<div class="valid-bad">BELUM SIAP</div>'
-        note = "Opsional" if optional else "Kolom hilang: " + ", ".join(missing)
 
     st.markdown(
         f"""
@@ -1490,7 +1489,7 @@ with st.container():
             st.markdown(
                 """
                 <div class="small-note">
-                Belum ada <b>test.csv</b> yang diupload. Upload file test tanpa kolom <b>Weekly_Sales</b> untuk melihat prediksi ke depan.
+                Upload file test tanpa kolom <b>Weekly_Sales</b> untuk melihat prediksi ke depan.
                 </div>
                 """,
                 unsafe_allow_html=True,
@@ -1504,15 +1503,6 @@ st.markdown('<div class="divider-space"></div>', unsafe_allow_html=True)
 run_col, note_col = st.columns([0.24, 0.76], vertical_alignment="center")
 with run_col:
     run_clicked = st.button("🚀 Run Prediction")
-with note_col:
-    st.markdown(
-        """
-        <div class="small-note">
-        Prediksi dilakukan menggunakan model <b>XGBoost–LSTM residual</b>. Proses dibuat lebih cepat dengan pendekatan <b>batch per tanggal</b>.
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
 
 if run_clicked:
     with st.status("Menjalankan pipeline prediksi...", expanded=True) as status:
@@ -1622,9 +1612,6 @@ else:
             <div class="card">
                 <div class="card-title">Prediction Results</div>
                 <div class="card-subtitle">Hasil prediksi akan muncul setelah test.csv diupload dan tombol Run Prediction dijalankan.</div>
-                <div class="small-note">
-                Belum ada hasil prediksi aktif. Data utama tetap ditampilkan karena sudah dibaca dari folder data/, sedangkan data test perlu diupload untuk melihat prediksi ke depan.
-                </div>
             </div>
             """,
             unsafe_allow_html=True,
