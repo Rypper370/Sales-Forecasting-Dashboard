@@ -1013,6 +1013,13 @@ def validation_box(name: str, df: Optional[pd.DataFrame], required_cols: list[st
     else:
         status_html = '<div class="valid-bad">OPSIONAL</div>' if optional else '<div class="valid-bad">BELUM SIAP</div>'
 
+        if df is None:
+            note = "File belum tersedia atau belum diupload."
+        elif len(missing) > 0:
+            note = f"Kolom belum lengkap: {', '.join(missing)}"
+        else:
+            note = "Data belum siap digunakan."
+
     st.markdown(
         f"""
         <div class="validation-box">
